@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+
+  pex:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: t0lia/pex:latest
+    container_name: pex
+    ports:
+      - 8080:8080
