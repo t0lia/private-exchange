@@ -1,0 +1,12 @@
+###
+POST {{pex}}
+Content-Type: application/json
+
+{
+  "value": "secret"
+}
+
+
+###
+GET {{pex}}/f17046ee-7d0c-44c7-877f-672345f751df
+Content-Type: application/json
