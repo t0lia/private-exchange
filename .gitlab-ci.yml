@@ -1,0 +1,43 @@
+image: maven:3.9.0-amazoncorretto-17
+
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=~/.m2/repository -DargLine=-Dfile.encoding=UTF-8"
+  DOCKER_DRIVER: overlay2
+
+.with-cache: &with-cache
+  cache:
+    key: priscilla-cache
+    paths:
+      - ~/.m2/repository
+
+build-job:
+  <<: *with-cache
+  stage: build
+  script: mvn $MAVEN_OPTS package -Dskip.unit.tests
+
+unit-test-job:
+  <<: *with-cache
+  stage: test
+  dependencies:
+    - build-job
+  script: mvn $MAVEN_OPTS clean test
+  artifacts:
+    reports:
+      junit:
+        - backend/*/target/surefire-reports/TEST-*.xml
+
+it-job:
+  <<: *with-cache
+  stage: test
+  dependencies:
+    - build-job
+  script: mvn $MAVEN_OPTS verify -P it
+  artifacts:
+    reports:
+      junit:
+        - backend/*/target/failsafe-reports/TEST-*.xml
