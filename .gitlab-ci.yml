@@ -1,17 +1,29 @@
 image: maven:3.9.0-amazoncorretto-17
 
+cache:
+  paths:
+    - .m2/repository/
+    - target/
+
+services:
+  - docker:dind
+
 stages:
   - build
   - test
-  - deploy
+  - artefact
 
 variables:
   MAVEN_OPTS: "-Dmaven.repo.local=~/.m2/repository -DargLine=-Dfile.encoding=UTF-8"
   DOCKER_DRIVER: overlay2
+  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
+  SPRING_PROFILES_ACTIVE: gitlab-ci
+  DOCKER_IMAGE_NAME: pex
+  DOCKERFILE_PATH: .
 
 .with-cache: &with-cache
   cache:
-    key: priscilla-cache
+    key: privex-cache
     paths:
       - ~/.m2/repository
 
@@ -41,3 +53,11 @@ it-job:
     reports:
       junit:
         - backend/*/target/failsafe-reports/TEST-*.xml
+
+docker-build:
+  image: docker:latest
+  stage: artefact
+  script:
+    - docker login -u $DOCKER_REGISTRY_LOGIN -p $DOCKER_REGISTRY_TOKEN
+    - docker build -t $DOCKER_REGISTRY_LOGIN/$DOCKER_IMAGE_NAME $DOCKERFILE_PATH
+    - docker push $DOCKER_REGISTRY_LOGIN/$DOCKER_IMAGE_NAME
