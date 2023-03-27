@@ -1,21 +1,4 @@
 package com.apozdniakov.privateexchange;
 
-public class Secret {
-    private String value;
-
-
-    public Secret() {
-    }
-
-    public Secret(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
+public record Secret(String value) {
 }
