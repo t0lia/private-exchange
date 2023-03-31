@@ -8,6 +8,6 @@ public class MainController {
 
     @GetMapping("/")
     public String index() {
-        return "Private Exchange application v1.0";
+        return "Private Exchange application v1.1";
     }
 }
