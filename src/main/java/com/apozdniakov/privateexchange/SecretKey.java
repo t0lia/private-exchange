@@ -1,4 +1,4 @@
 package com.apozdniakov.privateexchange;
 
-public record Secret(String secret) {
+public record SecretKey(String key) {
 }

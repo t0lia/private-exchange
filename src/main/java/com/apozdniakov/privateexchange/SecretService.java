@@ -18,7 +18,12 @@ public class SecretService {
     public String getSecret(String id) {
         logger.info("retrieving secret by id={}", id);
         UUID uuid = UUID.fromString(id);
-        return store.get(uuid).value();
+        if (store.containsKey(uuid)) {
+            return store.get(uuid).secret();
+        } else {
+            logger.warn("illegal access by the id {}", uuid);
+            throw new IllegalArgumentException("no such secret");
+        }
     }
 
     public String createSecret(Secret secret) {
