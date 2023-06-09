@@ -19,7 +19,7 @@ public class SecretService {
         logger.info("retrieving secret by id={}", id);
         UUID uuid = UUID.fromString(id);
         if (store.containsKey(uuid)) {
-            return store.get(uuid).secret();
+            return store.get(uuid).getSecret();
         } else {
             logger.warn("illegal access by the id {}", uuid);
             throw new IllegalArgumentException("no such secret");
