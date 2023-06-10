@@ -10,6 +10,8 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'pwd'
+                sh 'whoami'
+                sh 'mvn --version'
                 echo 'Testing..'
             }
         }
