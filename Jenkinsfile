@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                exit 1
+                sh 'pwd'
                 echo 'Testing..'
             }
         }
