@@ -1,6 +1,10 @@
 package com.apozdniakov.privateexchange;
 
 public class SecretKey {
+
+    public SecretKey() {
+    }
+
     public SecretKey(String key) {
         this.key = key;
     }

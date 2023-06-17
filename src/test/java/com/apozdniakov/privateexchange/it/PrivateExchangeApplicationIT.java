@@ -1,6 +1,7 @@
 package com.apozdniakov.privateexchange.it;
 
 import com.apozdniakov.privateexchange.Secret;
+import com.apozdniakov.privateexchange.SecretKey;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,10 +18,11 @@ class PrivateExchangeApplicationIT extends BaseIT {
 
     @Test
     void contextLoads() {
-        ResponseEntity<String> postResponse = testRestTemplate.postForEntity("/api/create", new Secret("test"), String.class);
-        ResponseEntity<String> getResponse = testRestTemplate.getForEntity("/api/" + postResponse.getBody(), String.class);
+        ResponseEntity<SecretKey> postResponse = testRestTemplate.postForEntity("/api/create", new Secret("test"), SecretKey.class);
+        String key = postResponse.getBody().getKey();
+        ResponseEntity<Secret> getResponse = testRestTemplate.getForEntity("/api/" + key, Secret.class);
         Assertions.assertEquals(200, getResponse.getStatusCodeValue());
-        Assertions.assertEquals("test", getResponse.getBody());
+        Assertions.assertEquals("test", getResponse.getBody().getSecret());
     }
 
 }

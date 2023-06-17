@@ -3,9 +3,9 @@ POST {{pex}}/api/create
 Content-Type: application/json
 
 {
-  "value": "secret"
+  "secret": "secret"
 }
 
 ###
-GET {{pex}}/api/f17046ee-7d0c-44c7-877f-672345f751df
+GET {{pex}}/api/e4254732-0bd0-4295-9dbb-65d2c86656e0
 Content-Type: application/json

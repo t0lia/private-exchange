@@ -5,8 +5,8 @@ services:
   pex:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ${DOCKERFILE_NAME}
     image: t0lia/pex:latest
     container_name: pex
     ports:
-      - 8080:8080
+      - "8080:8080"

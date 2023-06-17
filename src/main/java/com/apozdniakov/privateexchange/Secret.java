@@ -1,6 +1,9 @@
 package com.apozdniakov.privateexchange;
 
 public class Secret {
+    public Secret() {
+    }
+
     public Secret(String secret) {
         this.secret = secret;
     }

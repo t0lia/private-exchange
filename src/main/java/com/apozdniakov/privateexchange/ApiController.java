@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api")
 public class ApiController {
 
-    public static Logger logger = LoggerFactory.getLogger(MainController.class);
+    public static Logger logger = LoggerFactory.getLogger(ApiController.class);
 
     private final SecretService secretService;
 
