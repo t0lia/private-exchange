@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+
+    tools {
+        maven "maven 3.8.7"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout([$class: 'GitSCM',
+                          branches: [[name: 'jenkins']],
+                          userRemoteConfigs: [[url: 'https://github.com/t0lia/private-exchange.git']]])
+            }
+        }
+        stage('Build') {
+            steps {
+                sh './mvnw clean package -Pdev'
+            }
+        }
+        post {
+            success {
+                junit '**/target/surefire-reports/TEST-*.xml'
+                archiveArtifacts 'target/*.jar'
+            }
+        }
+    }
+}
