@@ -28,6 +28,7 @@ public class ApiController {
         return ResponseEntity.ok(new SecretKey(secretService.createSecret(secret)));
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<Secret> getSecret(@PathVariable String id) {
         logger.info("Get secret endpoint was called");
