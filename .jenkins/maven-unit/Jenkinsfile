@@ -24,5 +24,15 @@ pipeline {
                 }
             }
         }
+        stage('IT') {
+            steps {
+                     sh './mvnw clean verify -Pit'
+            }
+            post {
+                success {
+                   junit '**/target/failsafe-reports/TEST-*.xml'
+                }
+            }
+        }
     }
 }
