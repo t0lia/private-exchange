@@ -12,6 +12,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'echo hello'
+                sh 'docker --version'
             }
         }
     }
