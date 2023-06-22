@@ -11,8 +11,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'echo hello'
-                sh 'docker --version'
+                sh 'docker build -f Dockerfile-multistage -t pex . '
             }
         }
     }
