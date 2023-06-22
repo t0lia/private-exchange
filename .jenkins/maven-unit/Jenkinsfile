@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        maven "maven 3.8.7"
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -11,7 +15,23 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'echo hello'
+                sh './mvnw clean package -Pdev'
+            }
+            post {
+                success {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'target/*.jar'
+                }
+            }
+        }
+        stage('IT') {
+            steps {
+                     sh './mvnw clean verify -Pit'
+            }
+            post {
+                success {
+                   junit '**/target/failsafe-reports/TEST-*.xml'
+                }
             }
         }
     }
